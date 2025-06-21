@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Client Feedback – Tejyash Cyber Solutions</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       background-color: #ffffff;
       color: #333;
     }
@@ -28,13 +28,13 @@
     }
 
     .logo-text h1 {
-      color: #32CD32;
+      color: #32cd32;
       margin: 0;
       font-size: 22px;
     }
 
     .logo-text p {
-      color: #007BFF;
+      color: #007bff;
       margin: 0;
       font-size: 14px;
       font-weight: bold;
@@ -183,7 +183,7 @@
 
     .save-feedback-btn {
       padding: 10px;
-      background: #007BFF;
+      background: #007bff;
       color: #fff;
       border: none;
       border-radius: 5px;
@@ -209,12 +209,83 @@
     #showFormBtn:hover {
       background: #218838;
     }
+
+    #googlePromptOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    #googlePromptModal {
+      background-color: #fff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 400px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+      animation: modalSlideIn 0.3s ease-out;
+    }
+
+    @keyframes modalSlideIn {
+      from {
+        opacity: 0;
+        transform: scale(0.7);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    #googlePromptModal p {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .google-buttons button {
+      padding: 12px 24px;
+      margin: 0 10px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+
+    #googleYes {
+      background-color: #4285f4;
+      color: white;
+    }
+
+    #googleNo {
+      background-color: #ccc;
+      color: #333;
+    }
+
+    #googleYes:hover {
+      background-color: #3367d6;
+      transform: translateY(-1px);
+    }
+
+    #googleNo:hover {
+      background-color: #999;
+      transform: translateY(-1px);
+    }
   </style>
 </head>
 <body>
   <header>
     <div class="logo-container">
-      <img src="logo.png" alt="Logo" style="width:50px;">
+      <img src="logo.png" alt="Logo" style="width: 50px" />
       <div class="logo-text">
         <h1>Tejyash</h1>
         <p>Cyber Solutions</p>
@@ -232,7 +303,9 @@
   </header>
 
   <section class="reviews-section">
-    <div class="reviews-title">Client <span style="color: #00c851;">Feedback</span></div>
+    <div class="reviews-title">
+      Client <span style="color: #00c851">Feedback</span>
+    </div>
 
     <div class="review-container">
       <div class="review-box">
@@ -242,10 +315,10 @@
       </div>
       <div class="nav-arrows">
         <div class="nav-arrow" id="upArrow">
-          <img src="https://img.icons8.com/ios-filled/50/ffffff/up.png" alt="Up">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/up.png" alt="Up" />
         </div>
         <div class="nav-arrow" id="downArrow">
-          <img src="https://img.icons8.com/ios-filled/50/ffffff/down.png" alt="Down">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/down.png" alt="Down" />
         </div>
       </div>
     </div>
@@ -253,61 +326,95 @@
     <button id="showFormBtn">Give Feedback</button>
 
     <form id="feedbackForm">
-      <input name="name" id="userName" placeholder="Enter your name" required />
-      <input name="department" id="userDept" placeholder="Enter your Service" required />
-      <input name="rating" id="userRating" type="number" step="0.5" min="0" max="5" placeholder="Rating (0–5)" required />
-      <textarea name="feedback" id="userFeedback" rows="3" placeholder="Enter your feedback" required></textarea>
+      <input id="userName" placeholder="Enter your name" required />
+      <input id="userDept" placeholder="Enter your Service" required />
+      <input id="userRating" type="number" step="0.5" min="0" max="5" placeholder="Rating (0–5)" required />
+      <textarea id="userFeedback" rows="3" placeholder="Enter your feedback" required></textarea>
       <button class="save-feedback-btn" type="submit">Save Feedback</button>
     </form>
   </section>
 
+  <!-- Google Review Prompt Modal -->
+  <div id="googlePromptOverlay">
+    <div id="googlePromptModal">
+      <p>Thank you for your feedback!<br />Would you like to also post this review on Google?</p>
+      <div class="google-buttons">
+        <button id="googleYes">Yes, Post</button>
+        <button id="googleNo">No, Thanks</button>
+      </div>
+    </div>
+  </div>
+
   <script>
-    const form = document.getElementById('feedbackForm');
-    const showFormBtn = document.getElementById('showFormBtn');
-    const slide = document.getElementById('r-slide');
-    const upArrow = document.getElementById('upArrow');
-    const downArrow = document.getElementById('downArrow');
+    const form = document.getElementById("feedbackForm");
+    const showFormBtn = document.getElementById("showFormBtn");
+    const slide = document.getElementById("r-slide");
+    const upArrow = document.getElementById("upArrow");
+    const downArrow = document.getElementById("downArrow");
+    const googlePromptOverlay = document.getElementById("googlePromptOverlay");
+    const googleYes = document.getElementById("googleYes");
+    const googleNo = document.getElementById("googleNo");
 
     let feedbacks = [];
     let currentIndex = 0;
 
-    showFormBtn.addEventListener('click', () => {
-      form.style.display = form.style.display === 'flex' ? 'none' : 'flex';
+    showFormBtn.addEventListener("click", () => {
+      form.style.display = form.style.display === "flex" ? "none" : "flex";
     });
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault(); // This prevents the default form submission
+      e.stopPropagation(); // This stops the event from bubbling up
+      
       const data = {
-        name: document.getElementById('userName').value.trim(),
-        department: document.getElementById('userDept').value.trim(),
-        rating: parseFloat(document.getElementById('userRating').value),
-        feedback: document.getElementById('userFeedback').value.trim()
+        name: document.getElementById("userName").value.trim(),
+        department: document.getElementById("userDept").value.trim(),
+        rating: parseFloat(document.getElementById("userRating").value),
+        feedback: document.getElementById("userFeedback").value.trim()
       };
 
       if (!data.name || !data.department || isNaN(data.rating) || !data.feedback) {
-        alert('Please fill all fields correctly');
-        return;
+        alert("Please fill all fields correctly");
+        return false; // Prevent further execution
       }
 
       try {
-        const res = await fetch('http://localhost:5000/api/feedback', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
+        const res = await fetch("http://localhost:5000/api/feedback", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
         });
-        if (!res.ok) throw new Error('Submission failed');
+
+        if (!res.ok) throw new Error("Submission failed");
+
         await loadFeedbacks();
         form.reset();
-        form.style.display = 'none';
+        form.style.display = "none";
         showCard(0);
+        
+        // Show the modal with a slight delay to ensure everything is processed
+        // Show the modal immediately
+        googlePromptOverlay.style.display = 'flex';
+        console.log("Modal is now visible");
+
+        // Close the modal when any button is clicked
+        document.querySelectorAll("button").forEach(btn => {
+          btn.addEventListener("click", () => {
+            googlePromptOverlay.style.display = 'none';
+            console.log("Modal hidden on button click");
+          });
+        });
+
+        
       } catch (err) {
-        alert('Error: ' + err.message);
+        alert("Error: " + err.message);
       }
+      return false; // Prevent any default form behavior
     });
 
     async function loadFeedbacks() {
       try {
-        const res = await fetch('http://localhost:5000/api/feedback');
+        const res = await fetch("http://localhost:5000/api/feedback");
         const list = await res.json();
         list.sort((a, b) => b.rating - a.rating);
         feedbacks = list;
@@ -319,10 +426,16 @@
     }
 
     function renderFeedbacks() {
-      slide.innerHTML = '';
-      feedbacks.forEach(fb => {
-        const card = document.createElement('div');
-        card.className = 'r-card';
+      slide.innerHTML = "";
+      if (feedbacks.length === 0) {
+        slide.innerHTML = '<div class="no-feedback">No feedback available yet.</div>';
+        upArrow.style.display = "none";
+        downArrow.style.display = "none";
+        return;
+      }
+      feedbacks.forEach((fb) => {
+        const card = document.createElement("div");
+        card.className = "r-card";
         card.innerHTML = `
           <div class="review-info">
             <div>
@@ -330,34 +443,70 @@
               <p class="client-service">${fb.department}</p>
             </div>
             <div class="review-rating">
-              ${'★'.repeat(Math.floor(fb.rating))}${'☆'.repeat(5 - Math.floor(fb.rating))} ${fb.rating.toFixed(1)}
+              ${"★".repeat(Math.floor(fb.rating))}${"☆".repeat(5 - Math.floor(fb.rating))} ${fb.rating.toFixed(1)}
             </div>
           </div>
           <p class="review-text">${fb.feedback}</p>
         `;
-        card.style.display = 'none';
+        card.style.display = "none";
         slide.appendChild(card);
       });
       showCard(0);
-      upArrow.style.display = 'flex';
-      downArrow.style.display = 'flex';
+      upArrow.style.display = "flex";
+      downArrow.style.display = "flex";
     }
 
     function showCard(index) {
       if (!feedbacks.length) return;
-      const cards = document.querySelectorAll('.r-card');
+      const cards = document.querySelectorAll(".r-card");
       index = Math.max(0, Math.min(index, cards.length - 1));
       currentIndex = index;
       cards.forEach((card, i) => {
-        card.style.display = i === index ? 'block' : 'none';
+        card.style.display = i === index ? "block" : "none";
       });
-      upArrow.style.opacity = index === 0 ? '0.5' : '1';
-      downArrow.style.opacity = index === cards.length - 1 ? '0.5' : '1';
+      upArrow.style.opacity = index === 0 ? "0.5" : "1";
+      downArrow.style.opacity = index === cards.length - 1 ? "0.5" : "1";
     }
 
-    upArrow.addEventListener('click', () => showCard(currentIndex - 1));
-    downArrow.addEventListener('click', () => showCard(currentIndex + 1));
+    upArrow.addEventListener("click", () => showCard(currentIndex - 1));
+    downArrow.addEventListener("click", () => showCard(currentIndex + 1));
 
+    // Prevent the modal from closing when clicking on the modal content
+    document.getElementById("googlePromptModal").addEventListener("click", (e) => {
+      e.stopPropagation();
+    });
+
+    // Close modal only when clicking outside of it (optional)
+    googlePromptOverlay.addEventListener("click", (e) => {
+      if (e.target === googlePromptOverlay) {
+        // Uncomment the line below if you want to allow closing by clicking outside
+        // googlePromptOverlay.style.display = 'none';
+      }
+    });
+
+    googleYes.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      googlePromptOverlay.style.display = 'none';
+      window.open("https://search.google.com/local/writereview?placeid=ChIJyzcm87TP5zsRmFrZyXDEP7s", "_blank");
+    });
+
+    googleNo.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      googlePromptOverlay.style.display = 'none';
+    });
+
+    // Prevent any accidental form submissions or page refreshes
+    window.addEventListener("beforeunload", (e) => {
+  if (googlePromptOverlay.style.display === 'flex') {
+    e.preventDefault();
+    e.returnValue = '';
+  }
+});
+
+
+    // Initial load
     loadFeedbacks();
   </script>
 </body>

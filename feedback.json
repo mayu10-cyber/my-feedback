@@ -1,14 +1,26 @@
 [
   {
-    "name": "mayuresh",
-    "department": "Hardware Devices",
+    "name": "Raj Barsing",
+    "department": "Software Solution",
     "rating": 4,
-    "feedback": "hiii"
+    "feedback": "hi"
   },
   {
-    "name": "Rushikesh Pandit",
+    "name": "Pratiksha Murukate",
+    "department": "Laptop Repairing",
+    "rating": 4,
+    "feedback": "hi"
+  },
+  {
+    "name": "Pratiksha Murukate",
     "department": "Software Solution",
-    "rating": 5,
-    "feedback": "welcome"
+    "rating": 2,
+    "feedback": "hi"
+  },
+  {
+    "name": "mayuresh",
+    "department": "Software Solution",
+    "rating": 4,
+    "feedback": "hi"
   }
 ]
