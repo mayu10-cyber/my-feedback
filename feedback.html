@@ -19,6 +19,27 @@
       padding: 20px 50px;
       background: #fff;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 2;
+    }
+
+    .back-button {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.3s;
+    }
+
+    .back-button:hover {
+      background: #0056b3;
     }
 
     .logo-container {
@@ -52,6 +73,8 @@
       flex-direction: column;
       align-items: center;
       padding: 20px;
+      position: relative;
+      overflow: hidden;
     }
 
     .reviews-title {
@@ -70,6 +93,18 @@
       min-height: 300px;
     }
 
+    .quarter-circle {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 160px;
+      height: 160px;
+      background: #999999;
+      border-radius: 0 0 160px 0;
+      z-index: 1;
+      opacity: 0.2;
+    }
+
     .review-box {
       width: 100%;
       height: 300px;
@@ -80,6 +115,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
     }
 
     .no-feedback {
@@ -89,36 +125,68 @@
       padding: 20px;
     }
 
-    .nav-arrows {
+    .nav-rectangle {
       position: absolute;
-      right: -40px;
+      right: -50px;
+      width: 50px;
+      height: 300px;
+      background: linear-gradient(180deg, #00c851, #28a745);
+      border-radius: 10px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      align-items: center;
+      justify-content: center;
+      gap: 120px;
+      box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
     }
 
-    .nav-arrow {
+    /* Changed both arrows to circles */
+    .nav-arrow-up {
       width: 40px;
       height: 40px;
-      background: #00c851;
+      background: linear-gradient(145deg, #ffffff, #e6e6e6);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 0 0 2px #00c851, 0 2px 8px rgba(0, 0, 0, 0.2);
       transition: all 0.3s;
     }
 
-    .nav-arrow:hover {
-      background: #009933;
+    .nav-arrow-up img {
+      width: 20px;
+      height: 20px;
+      filter: brightness(0) saturate(100%) invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
+    }
+
+    .nav-arrow-down {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(145deg, #ffffff, #e6e6e6);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 0 0 2px #00c851, 0 2px 8px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s;
+    }
+
+    .nav-arrow-down img {
+      width: 22px;
+      height: 22px;
+      filter: brightness(0) saturate(100%) invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
+    }
+
+    .nav-arrow-up:hover {
+      background: linear-gradient(145deg, #f0fff0, #d1ffd1);
       transform: scale(1.1);
     }
 
-    .nav-arrow img {
-      width: 20px;
-      height: 20px;
-      filter: brightness(0) invert(1);
+    .nav-arrow-down:hover {
+      background: linear-gradient(145deg, #f0fff0, #d1ffd1);
+      transform: scale(1.1);
     }
 
     #r-slide {
@@ -161,53 +229,107 @@
       line-height: 1.5;
     }
 
-    #feedbackForm {
+    #feedbackPopupOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.7);
       display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    #feedbackPopup {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 450px;
+      width: 90%;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+      animation: modalSlideIn 0.3s ease-out;
+      position: relative;
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #999;
+      transition: color 0.3s;
+    }
+
+    .popup-close:hover {
+      color: #333;
+    }
+
+    .popup-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #333;
+      text-align: center;
+    }
+
+    #feedbackForm {
+      display: flex;
       flex-direction: column;
-      background: #f1f1f1;
-      padding: 20px;
-      margin-top: 20px;
-      border-radius: 10px;
-      width: 300px;
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
     }
 
     #feedbackForm input,
     #feedbackForm textarea {
-      margin-bottom: 10px;
-      padding: 10px;
+      margin-bottom: 15px;
+      padding: 12px;
       font-size: 14px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      transition: border-color 0.3s;
+    }
+
+    #feedbackForm input:focus,
+    #feedbackForm textarea:focus {
+      outline: none;
+      border-color: #00c851;
     }
 
     .save-feedback-btn {
-      padding: 10px;
-      background: #007bff;
+      padding: 12px;
+      background: #00c851;
       color: #fff;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
       cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
       transition: background 0.3s;
     }
 
     .save-feedback-btn:hover {
-      background: #0056b3;
+      background: #009933;
     }
 
     #showFormBtn {
       margin-top: 20px;
-      padding: 10px 20px;
+      padding: 15px 30px;
       background: #28a745;
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: background 0.3s;
+      font-size: 16px;
+      font-weight: bold;
+      transition: all 0.3s;
     }
 
     #showFormBtn:hover {
       background: #218838;
+      transform: translateY(-2px);
     }
 
     #googlePromptOverlay {
@@ -284,6 +406,7 @@
 </head>
 <body>
   <header>
+    <button class="back-button" onclick="history.back()">← Back</button>
     <div class="logo-container">
       <img src="logo.png" alt="Logo" style="width: 50px" />
       <div class="logo-text">
@@ -308,31 +431,39 @@
     </div>
 
     <div class="review-container">
+      <div class="quarter-circle"></div>
       <div class="review-box">
         <div id="r-slide">
           <div class="no-feedback">Loading feedback...</div>
         </div>
       </div>
-      <div class="nav-arrows">
-        <div class="nav-arrow" id="upArrow">
-          <img src="https://img.icons8.com/ios-filled/50/ffffff/up.png" alt="Up" />
+      <div class="nav-rectangle">
+        <div class="nav-arrow-up" id="upArrow">
+          <img src="https://img.icons8.com/ios-filled/50/000000/up.png" alt="Up" />
         </div>
-        <div class="nav-arrow" id="downArrow">
-          <img src="https://img.icons8.com/ios-filled/50/ffffff/down.png" alt="Down" />
+        <div class="nav-arrow-down" id="downArrow">
+          <img src="https://img.icons8.com/ios-filled/50/000000/down.png" alt="Down" />
         </div>
       </div>
     </div>
 
     <button id="showFormBtn">Give Feedback</button>
-
-    <form id="feedbackForm">
-      <input id="userName" placeholder="Enter your name" required />
-      <input id="userDept" placeholder="Enter your Service" required />
-      <input id="userRating" type="number" step="0.5" min="0" max="5" placeholder="Rating (0–5)" required />
-      <textarea id="userFeedback" rows="3" placeholder="Enter your feedback" required></textarea>
-      <button class="save-feedback-btn" type="submit">Save Feedback</button>
-    </form>
   </section>
+
+  <!-- Feedback Form Popup -->
+  <div id="feedbackPopupOverlay">
+    <div id="feedbackPopup">
+      <button class="popup-close" id="closePopup">&times;</button>
+      <div class="popup-title">Share Your Feedback</div>
+      <form id="feedbackForm">
+        <input id="userName" placeholder="Enter your name" required />
+        <input id="userDept" placeholder="Enter your Service" required />
+        <input id="userRating" type="number" step="0.5" min="0" max="5" placeholder="Rating (0–5)" required />
+        <textarea id="userFeedback" rows="4" placeholder="Enter your feedback" required></textarea>
+        <button class="save-feedback-btn" type="submit">Save Feedback</button>
+      </form>
+    </div>
+  </div>
 
   <!-- Google Review Prompt Modal -->
   <div id="googlePromptOverlay">
@@ -346,8 +477,10 @@
   </div>
 
   <script>
+    const feedbackPopupOverlay = document.getElementById("feedbackPopupOverlay");
     const form = document.getElementById("feedbackForm");
     const showFormBtn = document.getElementById("showFormBtn");
+    const closePopup = document.getElementById("closePopup");
     const slide = document.getElementById("r-slide");
     const upArrow = document.getElementById("upArrow");
     const downArrow = document.getElementById("downArrow");
@@ -359,12 +492,22 @@
     let currentIndex = 0;
 
     showFormBtn.addEventListener("click", () => {
-      form.style.display = form.style.display === "flex" ? "none" : "flex";
+      feedbackPopupOverlay.style.display = "flex";
+    });
+
+    closePopup.addEventListener("click", () => {
+      feedbackPopupOverlay.style.display = "none";
+    });
+
+    feedbackPopupOverlay.addEventListener("click", (e) => {
+      if (e.target === feedbackPopupOverlay) {
+        feedbackPopupOverlay.style.display = "none";
+      }
     });
 
     form.addEventListener("submit", async (e) => {
-      e.preventDefault(); // This prevents the default form submission
-      e.stopPropagation(); // This stops the event from bubbling up
+      e.preventDefault();
+      e.stopPropagation();
       
       const data = {
         name: document.getElementById("userName").value.trim(),
@@ -375,7 +518,7 @@
 
       if (!data.name || !data.department || isNaN(data.rating) || !data.feedback) {
         alert("Please fill all fields correctly");
-        return false; // Prevent further execution
+        return false;
       }
 
       try {
@@ -389,15 +532,12 @@
 
         await loadFeedbacks();
         form.reset();
-        form.style.display = "none";
+        feedbackPopupOverlay.style.display = "none";
         showCard(0);
         
-        // Show the modal with a slight delay to ensure everything is processed
-        // Show the modal immediately
         googlePromptOverlay.style.display = 'flex';
         console.log("Modal is now visible");
 
-        // Close the modal when any button is clicked
         document.querySelectorAll("button").forEach(btn => {
           btn.addEventListener("click", () => {
             googlePromptOverlay.style.display = 'none';
@@ -405,11 +545,10 @@
           });
         });
 
-        
       } catch (err) {
         alert("Error: " + err.message);
       }
-      return false; // Prevent any default form behavior
+      return false;
     });
 
     async function loadFeedbacks() {
@@ -429,8 +568,7 @@
       slide.innerHTML = "";
       if (feedbacks.length === 0) {
         slide.innerHTML = '<div class="no-feedback">No feedback available yet.</div>';
-        upArrow.style.display = "none";
-        downArrow.style.display = "none";
+        document.querySelector(".nav-rectangle").style.display = "none";
         return;
       }
       feedbacks.forEach((fb) => {
@@ -452,8 +590,7 @@
         slide.appendChild(card);
       });
       showCard(0);
-      upArrow.style.display = "flex";
-      downArrow.style.display = "flex";
+      document.querySelector(".nav-rectangle").style.display = "flex";
     }
 
     function showCard(index) {
@@ -471,12 +608,10 @@
     upArrow.addEventListener("click", () => showCard(currentIndex - 1));
     downArrow.addEventListener("click", () => showCard(currentIndex + 1));
 
-    // Prevent the modal from closing when clicking on the modal content
     document.getElementById("googlePromptModal").addEventListener("click", (e) => {
       e.stopPropagation();
     });
 
-    // Close modal only when clicking outside of it (optional)
     googlePromptOverlay.addEventListener("click", (e) => {
       if (e.target === googlePromptOverlay) {
         // Uncomment the line below if you want to allow closing by clicking outside
@@ -497,17 +632,15 @@
       googlePromptOverlay.style.display = 'none';
     });
 
-    // Prevent any accidental form submissions or page refreshes
     window.addEventListener("beforeunload", (e) => {
-  if (googlePromptOverlay.style.display === 'flex') {
-    e.preventDefault();
-    e.returnValue = '';
-  }
-});
-
+      if (googlePromptOverlay.style.display === 'flex') {
+        e.preventDefault();
+        e.returnValue = '';
+      }
+    });
 
     // Initial load
     loadFeedbacks();
   </script>
 </body>
-</html>
+</html> 

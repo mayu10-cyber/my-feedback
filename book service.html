@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book a Service | Tech Solutions</title>
+  <link rel="shortcut icon" href="Favicon/favicon.ico" type="image/x-icon" />
+  <!-- (Your CSS is the same as provided — unchanged, so not repeated here for brevity) -->
+  <style>
+          :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --secondary: #14b8a6;
+            --secondary-dark: #0d9488;
+            --bg-color: #181c24;
+            --card-bg: rgba(55, 65, 81, 0.9);
+            --text-light: #f3f4f6;
+            --text-muted: #d1d5db;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --success: #10b981;
+            --error: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg-color);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            position: relative;
+            overflow-x: hidden;
+            background-image: url('book/bgp.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 56rem;
+            margin: 2rem auto;
+            background: var(--card-bg);
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+            padding: 2.5rem;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.25);
+        }
+
+        #serviceForm {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 0;
+            position: relative;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .text-center {
+            text-align: center;
+            margin-bottom: 2rem;
+            grid-column: 1 / -1;
+        }
+
+        .headline {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background-image: linear-gradient(to right, var(--secondary), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .subheading {
+            color: var(--text-muted);
+            font-size: 1.25rem;
+            animation: fadeIn 0.6s ease-out 0.2s forwards;
+            opacity: 0;
+            max-width: 80%;
+            margin: 0 auto;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            background-color: rgba(75, 85, 99, 0.7);
+            border: 1px solid rgba(75, 85, 99, 0.5);
+            color: var(--text-light);
+            outline: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+            background-color: rgba(75, 85, 99, 0.9);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #9ca3af;
+            opacity: 0.7;
+        }
+
+        .submit-button {
+            grid-column: 1 / -1;
+            margin: 1rem auto 0;
+            width: 100%;
+            max-width: 24rem;
+            padding: 0.85rem 1.5rem;
+            background-image: linear-gradient(to right, var(--secondary), var(--primary));
+            color: white;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-button:hover {
+            background-image: linear-gradient(to right, var(--secondary-dark), var(--primary-dark));
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .submit-button:active {
+            transform: translateY(0);
+        }
+
+        .submit-button::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .submit-button:hover::after {
+            transform: translateX(100%);
+        }
+
+        .back-button {
+            color: var(--primary);
+            text-decoration: none;
+            margin-bottom: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .back-button:hover {
+            color: var(--secondary);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .fade-in-delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .fade-in-delay-2 {
+            animation-delay: 0.4s;
+        }
+
+        .fade-in-delay-3 {
+            animation-delay: 0.6s;
+        }
+
+        .fade-in-delay-4 {
+            animation-delay: 0.8s;
+        }
+
+        .fade-in-delay-5 {
+            animation-delay: 1.0s;
+        }
+
+        .fade-in-delay-6 {
+            animation-delay: 1.2s;
+        }
+
+        .fade-in-delay-7 {
+            animation-delay: 1.4s;
+        }
+
+        .fade-in-delay-8 {
+            animation-delay: 1.6s;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            color: white;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            transform: translateX(200%);
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .toast.success {
+            background-color: var(--success);
+            transform: translateX(0);
+        }
+
+        .toast.error {
+            background-color: var(--error);
+            transform: translateX(0);
+        }
+
+        .toast-icon {
+            font-size: 1.25rem;
+        }
+
+        /* Loading spinner */
+        .spinner {
+            display: none;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+
+            #serviceForm {
+                grid-template-columns: 1fr;
+            }
+
+            .headline {
+                font-size: 2rem;
+            }
+
+            .subheading {
+                font-size: 1rem;
+                max-width: 100%;
+            }
+        }
+
+        /* Form validation styles */
+        .form-group.error input,
+        .form-group.error select,
+        .form-group.error textarea {
+            border-color: var(--error);
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+
+        /* Datepicker improvements */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(0.8);
+            cursor: pointer;
+        }
+
+        /* Select dropdown arrow */
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23d1d5db'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1.5rem;
+        }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="tycs.html" class="back-button fade-in">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      Back to Services
+    </a>
+
+    <div class="text-center">
+      <h1 class="headline">Book a Service</h1>
+      <p class="subheading">Schedule your service in just a few clicks. Our team will contact you to confirm your appointment.</p>
+    </div>
+
+    <form id="serviceForm">
+      <!-- All form fields as you provided -->
+      <div class="form-group fade-in-delay-1">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" required placeholder="Tejas Relekar" />
+      </div>
+
+      <div class="form-group fade-in-delay-2">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" required placeholder="Tejas@example.com" />
+      </div>
+
+      <div class="form-group fade-in-delay-3">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" required placeholder="+91 9820XXXXXX" />
+      </div>
+
+      <div class="form-group fade-in-delay-4">
+        <label for="serviceSelect">Select a Service</label>
+        <select name="service" required id="serviceSelect">
+          <option value="" disabled selected>Select a service</option>
+          <option>Computer & Laptop Sales</option>
+          <option>Computer & Laptop Repairing</option>
+          <option>Refurbish Laptops</option>
+          <option>Website Development</option>
+          <option>Remote Desk Support</option>
+          <option>Virus Removal</option>
+          <option>Networking</option>
+          <option>CCTV Installation & Service</option>
+          <option>Data Backup & Recovery</option>
+          <option>Digital marketing</option>
+          <option>IT Consultation</option>
+        </select>
+      </div>
+
+      <div class="form-group fade-in-delay-5">
+        <label for="serviceType">Service Type</label>
+        <select name="serviceType" required id="serviceType">
+          <option value="Home Service" selected>Home Service</option>
+          <option value="Center Service">Service Center</option>
+        </select>
+      </div>
+
+      <div class="form-group fade-in-delay-6" id="addressGroup">
+        <label for="addressField">Service Address</label>
+        <input type="text" id="addressField" name="address" placeholder="123 Main St, City, State" />
+      </div>
+
+      <div class="form-group fade-in-delay-7">
+        <label for="date">Date</label>
+        <input type="date" id="date" name="date" required />
+      </div>
+
+      <div class="form-group fade-in-delay-8">
+        <label for="timeSlot">Time Slot</label>
+        <select id="timeSlot" name="timeSlot" required>
+          <option value="" disabled selected>Select Time Slot</option>
+          <option value="morning">Morning (9 AM - 12 PM)</option>
+          <option value="afternoon">Afternoon (1 PM - 5 PM)</option>
+          <option value="evening">Evening (6 PM - 9 PM)</option>
+        </select>
+      </div>
+
+      <div class="form-group fade-in-delay-8 full-width">
+        <label for="details">Additional Notes</label>
+        <textarea id="details" name="details" rows="4"
+          placeholder="Any specific requirements or details about your issue..."></textarea>
+      </div>
+      
+      <button type="submit" class="submit-button">
+        Submit Booking
+        <span class="spinner" id="submitSpinner"></span>
+      </button>
+    </form>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast" style="display: none;">
+    <span class="toast-icon" id="toastIcon">✓</span>
+    <span id="toastMessage">Booking submitted successfully!</span>
+  </div>
+
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+  emailjs.init("ZfeNK8e_b-9Gb_B17");
+
+  let voiceEnabled = true;
+
+  const speak = (text) => {
+    if (!voiceEnabled || !text.trim()) return;
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.rate = 1;
+    utter.pitch = 1;
+    speechSynthesis.cancel();
+    speechSynthesis.speak(utter);
+  };
+
+  document.addEventListener("DOMContentLoaded", () => {
+    speak("Welcome to Book a Service.");
+
+    document.querySelectorAll("div, label, button, a").forEach(el => {
+      el.addEventListener("mouseenter", () => speak(el.textContent));
+      el.addEventListener("touchstart", () => speak(el.textContent), { passive: true });
+    });
+
+    const muteBar = document.createElement("div");
+    muteBar.textContent = "🔊 Mute Voice Assistance";
+    Object.assign(muteBar.style, {
+      position: 'fixed',
+      bottom: '0',
+      left: '0',
+      width: '100%',
+      background: '#111827',
+      color: '#fff',
+      padding: '10px',
+      textAlign: 'center',
+      cursor: 'pointer',
+      zIndex: '99999',
+      fontWeight: '600'
+    });
+    document.body.appendChild(muteBar);
+
+    muteBar.addEventListener("click", () => {
+      voiceEnabled = !voiceEnabled;
+      muteBar.textContent = voiceEnabled ? "🔊 Mute Voice Assistance" : "🔇 Unmute Voice Assistance";
+      speak(voiceEnabled ? "Voice assistance is enabled" : "Voice assistance is muted");
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.altKey && e.key.toLowerCase() === 's') {
+        voiceEnabled = !voiceEnabled;
+        muteBar.textContent = voiceEnabled ? "🔊 Mute Voice Assistance" : "🔇 Unmute Voice Assistance";
+        speak(voiceEnabled ? "Voice assistance is enabled" : "Voice assistance is muted");
+      }
+    });
+
+    const dateField = document.getElementById('date');
+    const today = new Date();
+    dateField.min = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+
+    const serviceSelect = document.getElementById('serviceSelect');
+    const savedService = localStorage.getItem('selectedService');
+    if (savedService) {
+      [...serviceSelect.options].forEach(opt => {
+        if (opt.textContent.trim().toLowerCase() === savedService.toLowerCase()) {
+          opt.selected = true;
+        }
+      });
+    }
+    updateServiceTypeState();
+  });
+
+  const serviceForm = document.getElementById('serviceForm');
+  const serviceSelect = document.getElementById('serviceSelect');
+  const serviceType = document.getElementById('serviceType');
+  const addressGroup = document.getElementById('addressGroup');
+  const addressField = document.getElementById('addressField');
+  const submitSpinner = document.getElementById('submitSpinner');
+  const toast = document.getElementById('toast');
+  const toastIcon = document.getElementById('toastIcon');
+  const toastMessage = document.getElementById('toastMessage');
+
+  serviceSelect.addEventListener('change', updateServiceTypeState);
+  serviceType.addEventListener('change', toggleAddressField);
+
+  function updateServiceTypeState() {
+    if (serviceSelect.value === "CCTV Installation & Service") {
+      serviceType.value = "Home Service";
+      serviceType.disabled = true;
+    } else {
+      serviceType.disabled = false;
+    }
+    toggleAddressField();
+  }
+
+  function toggleAddressField() {
+    if (serviceType.value === "Home Service") {
+      addressGroup.style.display = "block";
+      addressField.setAttribute("required", "required");
+    } else {
+      addressGroup.style.display = "none";
+      addressField.removeAttribute("required");
+    }
+  }
+
+  function showToast(message, isSuccess) {
+    toast.style.display = "flex";
+    toast.className = isSuccess ? "toast success" : "toast error";
+    toastIcon.textContent = isSuccess ? "✓" : "✕";
+    toastMessage.textContent = message;
+    if (voiceEnabled) speak(message);
+    setTimeout(() => {
+      toast.style.display = "none";
+    }, 5000);
+  }
+
+  function validateForm() {
+    let isValid = true;
+    const formGroups = serviceForm.querySelectorAll('.form-group');
+
+    formGroups.forEach(group => {
+      const input = group.querySelector('input, select, textarea');
+      if (!input) return;
+
+      if (!input.hasAttribute('required') && input.value.trim() === '') {
+        group.classList.remove('error');
+        return;
+      }
+
+      if (input.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) {
+        group.classList.add('error');
+        isValid = false;
+        return;
+      }
+
+      if (input.hasAttribute('required') && input.value.trim() === '') {
+        group.classList.add('error');
+        isValid = false;
+      } else {
+        group.classList.remove('error');
+      }
+    });
+
+    return isValid;
+  }
+
+  serviceForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      showToast("Please fill all required fields correctly", false);
+      return;
+    }
+
+    submitSpinner.style.display = "inline-block";
+    serviceForm.querySelector('button').disabled = true;
+
+    try {
+      await emailjs.send("service_b2cp0io", "template_xvc4gw6", {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        service: serviceSelect.value,
+        service_type: serviceType.value,
+        address: addressField.value,
+        date: document.getElementById("date").value,
+        time: document.getElementById("timeSlot").value,
+        notes: document.getElementById("details").value || "None"
+      });
+
+      showToast("✅ Booking submitted successfully! We'll contact you soon.", true);
+      serviceForm.reset();
+      localStorage.setItem('selectedService', serviceSelect.value);
+
+      // Redirect after 2.5 seconds
+      setTimeout(() => {
+        window.location.href = "tycs.html";
+      }, 2500);
+
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      showToast("❌ Failed to send. Please try again later.", false);
+    } finally {
+      submitSpinner.style.display = "none";
+      serviceForm.querySelector('button').disabled = false;
+    }
+  });
+
+  // Voice Command (🎤)
+  if ("SpeechRecognition" in window || "webkitSpeechRecognition" in window) {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'en-IN';
+    recognition.interimResults = false;
+
+    let isListening = false;
+    const micBtn = document.createElement('button');
+    micBtn.textContent = '🎤';
+    Object.assign(micBtn.style, {
+      position: 'fixed',
+      bottom: '70px',
+      right: '20px',
+      padding: '12px',
+      borderRadius: '50%',
+      backgroundColor: '#10b981',
+      color: '#fff',
+      fontSize: '18px',
+      zIndex: '9999',
+      border: 'none',
+      cursor: 'pointer',
+    });
+    document.body.appendChild(micBtn);
+
+    micBtn.addEventListener('click', () => {
+      if (!isListening) {
+        recognition.start();
+        micBtn.style.backgroundColor = '#ef4444';
+        isListening = true;
+      }
+    });
+
+    recognition.onend = () => {
+      isListening = false;
+      micBtn.style.backgroundColor = '#10b981';
+    };
+
+    recognition.onresult = (event) => {
+      const command = event.results[0][0].transcript.toLowerCase().trim();
+      if (!voiceEnabled) return;
+
+      if (command.includes("submit") || command.includes("book")) {
+        serviceForm.requestSubmit();
+      } else if (command.includes("clear") || command.includes("reset")) {
+        serviceForm.reset();
+        speak("Form cleared.");
+      }
+    };
+  }
+</script>
+
+</body>
+</html>

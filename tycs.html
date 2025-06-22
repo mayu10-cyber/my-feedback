@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="icon" href="tyc.icon.jpeg" type="image/png">  
+    <link rel="stylesheet" href="tycs.css">
+
+    </style>
+
+    <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        autoDisplay: false
+      }, 'google_translate_element');
+    }
+
+    function triggerTranslation(lang) {
+      const select = document.querySelector("select.goog-te-combo");
+      if (select) {
+        select.value = lang;
+        select.dispatchEvent(new Event("change"));
+      }
+    }
+  </script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <style>
+
+      #contact-heading {
+      text-align: center;
+      color: #007BFF;
+      font-size: 36px;
+      margin: 40px 0 20px 0;
+      font-weight: bold;
+    }
+
+    .location-section {
+      display: flex;
+      flex-direction: column;
+      padding: 20px 50px;
+      gap: 40px;
+    }
+
+    .top-container {
+      display: flex;
+      gap: 50px;
+      align-items: stretch;
+    }
+
+    .location-container {
+      flex: 1;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 16px;
+      padding: 30px;
+      min-width: 500px;
+      border: 2px solid #e0e0e0;
+      margin-left: -50px;
+    }
+
+    .map-container {
+      flex: 1;
+      min-width: 600px;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 16px;
+      padding: 20px;
+      border: 2px solid #e0e0e0;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .map-view {
+      flex: 1;
+      position: relative;
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 300px;
+      border: 0;
+      border-radius: 8px;
+    }
+
+    .map-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .action-buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .share-btn {
+      padding: 8px 15px;
+      border: 1px solid #2e8b57;
+      border-radius: 4px;
+      background: white;
+      color: #2e8b57;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .share-btn:hover {
+      background: #2e8b57;
+      color: white;
+    }
+
+    .copy-popup {
+      position: absolute;
+      bottom: 50px;
+      right: 20px;
+      background: #333;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 4px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .copy-popup.show {
+      opacity: 1;
+    }
+
+    .map-container a {
+      display: inline-block;
+      margin-top: 10px;
+      color: #007BFF;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .map-container a:hover {
+      text-decoration: underline;
+    }
+
+    .location-text h2 {
+      font-size: 26px;
+      color: #007BFF;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 10px;
+    }
+
+    .location-text p {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .info-indent {
+      margin-left: 20px;
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .info-indent a {
+      text-decoration: none;
+      color: #333;
+    }
+
+    .info-indent a:hover {
+      color: #007BFF;
+    }
+
+    .form-middle-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+    }
+
+    .form-container {
+      background: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 16px;
+      padding: 30px;
+      max-width: 800px;
+      width: 100%;
+      border: 2px solid #e0e0e0;
+    }
+
+    .form-container h2 {
+      color: #2e8b57;
+      font-size: 26px;
+      margin-bottom: 15px;
+      text-align: center;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 10px;
+    }
+
+    .form-container form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .form-group {
+      flex: 1;
+      min-width: 200px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #555;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 14px;
+      outline: none;
+      transition: border 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #007BFF;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+    }
+
+    .form-submit-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    button[type="submit"] {
+      width: fit-content;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 8px;
+      background-color: #2e8b57;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-weight: bold;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #246b45;
+    }
+
+    footer {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      background-image: url('background.webp');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center center;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 15px 10px 15px;
+      box-sizing: border-box;
+      user-select: none;
+      justify-content: space-between;
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    footer nav {
+      display: flex;
+      gap: 20px;
+      justify-content: flex-start;
+      width: 60%;
+      flex-shrink: 1;
+      flex-wrap: wrap;
+    }
+
+    footer nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 14px;
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
+
+    footer nav a:hover {
+      color: #32CD32;
+      text-decoration: underline;
+    }
+
+    .follow-us {
+      color: white;
+      font-weight: 500;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-grow: 1;
+      justify-content: flex-end;
+      margin-top: 20px;
+    }
+
+    .follow-us-title {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .social-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 400;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .social-links a:hover {
+      color: #32CD32;
+      text-decoration: underline;
+    }
+
+    .social-icon {
+      width: 18px;
+      height: 18px;
+      filter: invert(1);
+      display: inline-block;
+    }
+
+    /* Updated dropdown styles - now positioned on the right */
+    .location-dropdown {
+      position: absolute;
+      top: 10px;
+      right: 10px; /* Changed from left to right */
+      z-index: 1000;
+      background: white;
+      border-radius: 4px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .map-view:hover .location-dropdown {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .dropdown-header {
+      padding: 8px 12px;
+      background: #007BFF;
+      color: white;
+      font-weight: bold;
+      border-radius: 4px 4px 0 0;
+    }
+
+    .dropdown-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .dropdown-item {
+      padding: 8px 12px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .dropdown-item:hover {
+      background-color: #f0f0f0;
+    }
+
+    .dropdown-item.active {
+      background-color: #e0e0e0;
+      font-weight: bold;
+    }
+
+    .dropdown-divider {
+      height: 1px;
+      background-color: #ddd;
+      margin: 4px 0;
+    }
+
+    @media (max-width: 768px) {
+      .top-container {
+        flex-direction: column;
+      }
+
+      .location-container, .map-container {
+        width: 100%;
+      }
+
+      .map-container {
+        text-align: center;
+      }
+
+      footer {
+        height: auto;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      footer nav {
+        gap: 15px;
+        width: 100%;
+      }
+
+      .follow-us {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: 1x;
+      }
+
+      .follow-us-title {
+        margin-bottom: 6px;
+        font-size: 14px;
+      }
+      
+      .location-dropdown {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        margin-bottom: 15px;
+        right: auto; /* Reset right positioning for mobile */
+      }
+    }
+
+  </style>
+
+</head>
+<body>
+
+     <!-- Header -->
+  <header>
+    <div class="logo-container">
+      <img src="tyc.icon.jpeg" alt="TYCS Logo" class="logo-img" />
+      <div class="logo-text">
+        <h1>TEJYASH CYBER SOLUTIONS</h1>
+        <p>TECH TO THE RESCUE</p>
+      </div>
+    </div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#services">Services</a>
+      <a href="#about">About Us</a>
+      <a href="#teams ">Team member</a>
+      <a href="#clients">Clients</a>
+      <a href="#feedback">Feedbacks</a>
+      <a href="#location">Contact Us</a>
+
+      <!-- Language Dropdown -->
+      <select class="lang-dropdown" onchange="triggerTranslation(this.value)">
+        <option value="en">🌐 English</option>
+        <option value="hi">Hindi</option>
+        <option value="mr">Marathi</option>
+        <option value="ta">Tamil</option>
+        <option value="te">Telugu</option>
+      </select>
+    </nav>
+  </header>
+
+  <!-- Hidden Google Translate widget -->
+  <div id="google_translate_element" style="display: none;"></div>
+
+  <!-- Home Section -->
+  <section id="home" class="home-section">
+    <div class="text-box">
+      <h1>Do you have any kind of Laptop or Computer problems?</h1>
+      <p>
+        We'll fix your laptop, your desktop, your Mac or your PC.<br />
+        With our skills and experience, we're the ones you can trust, you'll see.<br />
+        We'll replace your parts, upgrade your software, and optimize your speed,<br />
+        So you can enjoy your computer, and not feel the need.
+      </p>
+    </div>
+    <div class="animated-image1">
+      <img src="img1.png" alt="Animated Image" />
+    </div>
+  </section>
+
+    <!-- server section -->
+
+   <section id="services" class="services-wrapper">
+    <div class="background-shape"></div>
+    <h1 class="service-title">Our <span class="highlight">Services</span></h1>
+    <div class="services-row">
+      <!-- Row 1 -->
+      <div class="services-subrow">
+        <a href="book service.html" class="service-card-container fade-in">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="Computer & Laptop Sales.png" alt="" />
+              <h3>Computer & Laptop Sales</h3>
+              <p>We have a wide range of computers and laptops available at discounted prices.</p>
+            </div>
+          </div>
+        </a>
+        <a href="book service.html" class="service-card-container fade-in">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="Computer & Laptop Repairing.jpg" alt="" />
+              <h3>Computer & Laptop Repairing</h3>
+              <p>Experienced technicians diagnose and repair all your PC/laptop problems.</p>
+            </div>
+          </div>
+        </a>
+        <a href="book service.html" class="service-card-container fade-in">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="Refurbish Laptops.png" alt="Refurbish Laptop" />
+              <h3>Refurbish Laptops</h3>
+              <p>High-quality refurbished laptops, tested and restored for better affordability.</p>
+            </div>
+          </div>
+        </a>
+        <a href="book service.html" class="service-card-container fade-in">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="Website Development.png" alt="Website Development" />
+              <h3>Website Development</h3>
+              <p>From concept to launch — we build responsive, functional, custom websites.</p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="services-subrow">
+        <a href="book service.html" class="service-card-container fade-in">
+          <div class="card-inner">
+            <div class="card-front">
+            <img src="Remote Desk Support.png" alt="Remote Desk Support" />
+            <h3>Remote Desk Support</h3>
+            <p>Technicians can remotely access and fix your devices in real-time securely.</p>
+            </div>
+          </div>
+        </a>
+        <a href="book service.html" class="service-card-container fade-in">
+          <div class="card-inner">
+            <div class="card-front">
+            <img src="Virus Removal.jpg" alt="Virus Removal" />
+            <h3>Virus Removal</h3>
+            <p>Fast and effective virus and malware detection and elimination service.</p>
+            </div>
+          </div>
+        </a>
+        <a href="book service.html" class="service-card-container fade-in">
+          <div class="card-inner">
+            <div class="card-front">
+            <img src="Networking.avif" alt="Networking" />
+            <h3>Networking</h3>
+            <p>Setup and troubleshoot routers, switches, and wireless network systems.</p>
+            </div>
+          </div>
+        </a>
+        <a href="book service.html" class="service-card-container fade-in">
+          <div class="card-inner">
+            <div class="card-front">
+            <img src="CCTV Installation & Servicein.jpg" alt="CCTV" />
+            <h3>CCTV Installation & Service</h3>
+            <p>Monitor and secure your premises with expert CCTV installation & support.</p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="services-subrow">
+        <a href="book service.html" class="service-card-container fade-in">
+          <div class="card-inner">
+            <div class="card-front">
+            <img src="Data Backup & Recovery.png" alt="Data Backup & Recovery" />
+            <h3>Data Backup & Recovery</h3>
+            <p>Protect your important files and recover lost data with our backup services.</p>
+            </div>
+          </div>
+        </a>
+        <a href="book service.html" class="service-card-container fade-in">
+          <div class="card-inner">
+            <div class="card-front">
+            <img src="Digital Marketing.jpg" alt="Digital Marketing" />
+            <h3>Digital Marketing</h3>
+            <p>SEO, PPC, content, and social media strategies to grow your online presence.</p>
+            </div>
+          </div>
+        </a>
+        <a href="book service.html" class="service-card-container fade-in">
+          <div class="card-inner">
+            <div class="card-front">
+            <img src="IT Consultation.png" alt="IT Consultation" />
+            <h3>IT Consultation</h3>
+            <p>Custom solutions to enhance IT infrastructure, security, and performance.</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="book-service-button">
+    <a href="book service.html" class="book-btn">Reserve a Slot</a>
+    </div>
+
+  </section>
+
+
+<!-- about us -->
+ <section id="about"  class="about-section">
+  <div class="about-text-box">
+    <h1 class="about-title">What We <span class="highlight">Do & Who </span> We Are</h1>
+    <h6>Welcome to our TEJYASH CYBER SOLUTIONS</h6>
+    <p>Our company was founded with the mission of empowering businesses and individuals to safeguard themselves against cyber threats while
+       maximizing the benefits of modern technology. We are committed to providing cutting-edge cybersecurity solutions, IT services, and 
+       technological innovations that ensure data security, operational efficiency, and digital resilience. 
+    </p>
+
+    <p>We are a dedicated team of experienced cybersecurity experts, IT consultants, and technology professionals committed to helping our clients
+       harness the power of technology while ensuring their digital safety. With deep expertise in cybersecurity, IT infrastructure, and modern 
+       technological solutions, we provide strategic guidance and cutting-edge services that empower businesses to operate efficiently and securely.
+    </p>
+
+    <p>Our services encompass a comprehensive range of cybersecurity solutions designed to protect businesses and individuals from digital threats.
+       We specialize in network security, ensuring secure and resilient IT infrastructures; data backup and recovery, safeguarding critical 
+       information against loss or breaches; virus removal, eliminating malware and securing systems from cyberattacks; and digital forensics,
+       investigating security incidents to identify threats and vulnerabilities.
+    </p>
+    
+    <button class="read-more-btn" onclick="document.querySelector('.popup-overlay').style.display='flex'">Discover More <span>➔</span></button>
+  </div>
+  <div class="animated-image">
+    <img src="tejas3.jpg" alt="About Image 1" />
+    <img src="tejas5.jpg" alt="About Image 2" />
+    <img src="tejas4.jpg" alt="About Image 3" />
+  </div>
+</section>
+
+<!-- Main Popup Modal -->
+<div class="popup-overlay">
+  <div class="popup-container">
+    <button class="close-btn" onclick="document.querySelector('.popup-overlay').style.display='none'">&times;</button>
+    <button class="back-btn" style="display: none;"></button>
+    <div class="quote-carousel">
+      <div class="quote-text">
+        <blockquote id="quote">"Every problem is a gift, without problems we would not grow."</blockquote>
+        <cite id="author">– Anthony Robbins</cite>
+      </div>
+      <div class="quote-image-container">
+        <div class="nav-arrow left" id="prev">&#8249;</div>
+        <img src="tejas3.jpg" alt="Quote Image" id="carousel-img" />
+        <div class="nav-arrow right" id="next">&#8250;</div>
+      </div>
+    </div>
+
+    <section class="intro-text">
+      <div class="about-text-box">
+        <h2>Comprehensive Digital Protection</h2>
+        <p>Our services encompass a comprehensive range of cybersecurity solutions designed to protect businesses and individuals from digital
+           threats. We specialize in network security, ensuring secure and resilient IT infrastructures; data backup and recovery, safeguarding
+           critical information against loss or breaches; virus removal, eliminating malware and securing systems from cyberattacks; and digital
+           forensics, investigating security incidents to identify threats and vulnerabilities.
+        </p>
+        <p>We are a dedicated team of experienced cybersecurity experts, IT consultants, and technology professionals committed to helping our
+          clients harness the power of technology while ensuring their digital safety. With deep expertise in cybersecurity, IT infrastructure,
+          and modern technological solutions, we provide strategic guidance and cutting-edge services that empower businesses to operate
+          efficiently and securely.
+        </p>
+        <p>Our company was founded with the mission of empowering businesses and individuals to safeguard themselves against cyber threats while
+           maximizing the benefits of modern technology. We are committed to providing cutting-edge cybersecurity solutions, IT services, and
+           technological innovations that ensure data security, operational efficiency, and digital resilience.
+        </p>
+      </div>
+    </section>
+
+    <div class="popup-buttons-vertical">
+      <button class="read-more-btn" onclick="showHistoryPopup()">Our History</button>
+      <button class="read-more-btn" onclick="showMissionPopup()">Our Mission</button>
+      <button class="read-more-btn" onclick="showWhyChoosePopup()">Why Choose Us</button>
+    </div>
+  </div>
+</div>
+
+<!-- Our History Popup -->
+<div class="popup-overlay" id="history-popup">
+  <div class="popup-container">
+    <button class="close-btn" onclick="hideHistoryPopup()">&times;</button>
+    <button class="back-btn" onclick="backToMainPopup()">Back</button>
+    <div class="history-content">
+      <div class="history-text">
+        <h2 style="color: #32CD32;">Our Cybersecurity Journey</h2>
+        <p>Founded in 2010 by Tejas Relekar, we began as a small IT service provider with a vision for better digital security. Recognizing the growing cyber threat landscape, we specialized in protection solutions.</p>
+        <p>Over the years, we've evolved into a trusted security partner for businesses across industries. Our growth reflects the increasing importance of cybersecurity in the digital age.</p>
+        <p>Today, we combine our technical heritage with cutting-edge security expertise to deliver comprehensive protection against modern cyber threats.</p>
+      </div>
+      <div class="history-image">
+        <img src="tejas.webp" alt="Our History" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Our Mission Popup -->
+<div class="popup-overlay" id="mission-popup">
+  <div class="popup-container">
+    <button class="close-btn" onclick="hideMissionPopup()">&times;</button>
+    <button class="back-btn" onclick="backToMainPopup()">Back</button>
+    <div class="mission-content">
+      <div class="mission-text">
+        <h2 style="color: #32CD32;">Our Security Commitment</h2>
+        <p>We exist to make the digital world safer for businesses. Our mission is to provide accessible, effective cybersecurity that lets our clients operate with confidence.</p>
+        <p>We believe in proactive protection - identifying and mitigating vulnerabilities before they can be exploited. Our approach combines education with implementation.</p>
+        <p>Through continuous innovation and client-focused service, we aim to set the standard for cybersecurity excellence in our industry.</p>
+      </div>
+      <div class="mission-image">
+        <img src="tejas2.webp" alt="Our Mission" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Why Choose Us Popup -->
+<div class="popup-overlay" id="why-choose-popup">
+  <div class="popup-container">
+    <button class="close-btn" onclick="hideWhyChoosePopup()">&times;</button>
+    <button class="back-btn" onclick="backToMainPopup()">Back</button>
+    <div class="why-choose-content">
+      <div class="why-choose-text">
+        <h2 style="color: #32CD32;">Our Security Advantages</h2>
+        <p><strong>Certified Experts:</strong> Highly trained cybersecurity professionals</p>
+        <p><strong>Proactive Defense:</strong> We anticipate threats before they strike</p>
+        <p><strong>Custom Solutions:</strong> Tailored to your specific security needs</p>
+        <p><strong>24/7 Monitoring:</strong> Constant protection for your systems</p>
+        <p><strong>Transparent Reporting:</strong> Clear insights into your security status</p>
+        <p><strong>Proven Results:</strong> Track record of successful protection</p>
+      </div>
+      <div class="why-choose-image">
+        <img src="tejas5.jpg" alt="Why Choose Us" />
+      </div>
+    </div>
+  </div>
+</div>
+
+ <!-- Team Member Example -->
+
+<section id="teams"  class="teams-wrapper">
+  <h1 class="team-title">Our <span class="highlight">Dedicated & Experienced Team</span> Members</h1>
+
+  <div class="teams-subrow">
+
+    <div class="team-card">
+      <img src="Kiran Patil.jpg" alt="Kiran" />
+      <h3>Kiran Patil</h3>
+      <h4>Founder & CEO</h4>
+      <p>Visionary leader with a passion for cybersecurity innovation.</p>
+      <div class="detail-panel">
+        <h4>Kiran Patil</h4>
+        <p>Cybersecurity specialist with 12+ years in network defense and digital transformation.</p>
+        <div class="detail-social">
+          <a href="mailto:TejyashCyberSolutions@gmail.com" target="_blank"><img src="https://img.icons8.com/fluency/48/gmail.png" alt="Gmail"></a>
+          <a href="https://wa.me/917977060816" target="_blank"><img src="https://img.icons8.com/color/48/whatsapp.png" alt="WhatsApp"></a>
+          <a href="https://www.instagram.com/relekarkiran/" target="_blank"><img src="https://img.icons8.com/fluency/48/instagram-new.png" alt="Instagram"></a>
+          <a href="https://www.facebook.com/relekarkiran" target="_blank"><img src="https://img.icons8.com/fluency/48/facebook-new.png" alt="Facebook"></a>
+          <a href="https://www.linkedin.com/in/kiran-relekar-559bbb144/" target="_blank"><img src="https://img.icons8.com/fluency/48/linkedin.png" alt="LinkedIn"></a>
+        </div>
+      </div>
+    </div>
+
+     <!-- Team Member 2 -->
+    <div class="team-card">
+      <img src="Tejas Relekar.jpg" alt="Tejas" />
+      <h3>Tejas Relekar</h3>
+      <h4>B.E. in IT</h4>
+      <p>Experienced developer and technical consultant with a deep knowledge of systems architecture.</p>
+      <div class="detail-panel">
+        <h4>Tejas Relekar</h4>
+        <p>Tejas has over ten years of experience in the IT field, with expertise in cloud systems, DevOps, and project architecture.</p>
+        <div class="detail-social">
+        <a href="https://mail.google.com/mail/?view=cm&to=TejyashCyberSolutions@gmail.com"target="_blank"><img src="https://img.icons8.com/fluency/48/gmail.png" alt="Gmail"></a>
+        <a href="https://wa.me/917977060816"><img src="https://img.icons8.com/color/48/whatsapp.png" alt="WhatsApp"></a>
+        <a href="https://www.instagram.com/tejyashcybersolutions/"><img src="https://img.icons8.com/fluency/48/instagram-new.png" alt="Instagram"></a>
+        <a href="https://www.facebook.com/profile.php?id=100017573707461"><img src="https://img.icons8.com/fluency/48/facebook-new.png" alt="Facebook"></a>
+        <a href="https://www.linkedin.com/in/tejas-relekar-a444527b/"><img src="https://img.icons8.com/fluency/48/linkedin.png" alt="LinkedIn"></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team Member 3 -->
+    <div class="team-card">
+      <img src="Sagar Shinde.jpg" alt="Sagar" />
+      <h3>Sagar Shinde</h3>
+      <h4>Cybersecurity Analyst</h4>
+      <p>Expert in ethical hacking, digital forensics, and incident response operations.</p>
+      <div class="detail-panel">
+        <h4>Sagar Shinde</h4>
+        <p>Certified ethical hacker with 7+ years of experience in penetration testing, malware analysis, and security audits.</p>
+        <div class="detail-social">
+        <a href="https://mail.google.com/mail/?view=cm&to=TejyashCyberSolutions@gmail.com"target="_blank"><img src="https://img.icons8.com/fluency/48/gmail.png" alt="Gmail"></a>
+        <a href="https://wa.me/917977060816"><img src="https://img.icons8.com/color/48/whatsapp.png" alt="WhatsApp"></a>
+        <a href="https://www.instagram.com/sagartuk/"><img src="https://img.icons8.com/fluency/48/instagram-new.png" alt="Instagram"></a>
+        <a href="https://www.facebook.com/sagarsureahtukrul.sagar"><img src="https://img.icons8.com/fluency/48/facebook-new.png" alt="Facebook"></a>
+        <a href="https://www.linkedin.com/in/sagar-tukrul-9abb67188/"><img src="https://img.icons8.com/fluency/48/linkedin.png" alt="LinkedIn"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="teams-subrow">
+    <!-- Team Member 4 -->
+    <div class="team-card">
+      <img src="Zubair Shaikh.jpg" alt="Zubair" />
+      <h3>Zubair Shaikh</h3>
+      <h4>Frontend Developer</h4>
+      <p>UI/UX specialist with a knack for crafting clean and responsive web experiences.</p>
+      <div class="detail-panel">
+        <h4>Zubair Shaikh</h4>
+        <p>Proficient in HTML, CSS, JavaScript, React, and Figma with strong design thinking capabilities.</p>
+        <div class="detail-social">
+        <a href="https://mail.google.com/mail/?view=cm&to=TejyashCyberSolutions@gmail.com"target="_blank"><img src="https://img.icons8.com/fluency/48/gmail.png" alt="Gmail"></a>
+        <a href="https://wa.me/917977060816"><img src="https://img.icons8.com/color/48/whatsapp.png" alt="WhatsApp"></a>
+        <a href="https://www.instagram.com/tejyashcybersolutions/"><img src="https://img.icons8.com/fluency/48/instagram-new.png" alt="Instagram"></a>
+        <a href="https://www.facebook.com/profile.php?id=100017573707461"><img src="https://img.icons8.com/fluency/48/facebook-new.png" alt="Facebook"></a>
+        <a href="https://tycs.in/"><img src="https://img.icons8.com/fluency/48/linkedin.png" alt="LinkedIn"></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team Member 5 -->
+    <div class="team-card">
+      <img src="Embers AI.jpg" alt="Embers" />
+      <h3>Embers AI</h3>
+      <h4>AI Integration</h4>
+      <p>Handles smart automation and intelligent system integration for enhanced business solutions.</p>
+      <div class="detail-panel">
+        <h4>Embers AI</h4>
+        <p>Responsible for implementing AI algorithms in operations, chatbot systems, and intelligent data handling.</p>
+        <div class="detail-social">
+        <a href="https://mail.google.com/mail/?view=cm&to=TejyashCyberSolutions@gmail.com"target="_blank"><img src="https://img.icons8.com/fluency/48/gmail.png" alt="Gmail"></a>
+        <a href="https://wa.me/917977060816"><img src="https://img.icons8.com/color/48/whatsapp.png" alt="WhatsApp"></a>
+        <a href="https://www.instagram.com/tejyashcybersolutions/"><img src="https://img.icons8.com/fluency/48/instagram-new.png" alt="Instagram"></a>
+        <a href="https://www.facebook.com/profile.php?id=100017573707461"><img src="https://img.icons8.com/fluency/48/facebook-new.png" alt="Facebook"></a>
+        <a href="https://tycs.in/"><img src="https://img.icons8.com/fluency/48/linkedin.png" alt="LinkedIn"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- clients -->
+
+<section id="clients" class="clients-wrapper">
+    <h1 class="client-title">Our Trus<span class="highlight">ted & Val</span>ued Clients</h1>
+
+    <div class="carousel-container">
+      <div class="carousel-track">
+        <div class="client-item">
+          <a href="https://www.solventextractionplant.com/" target="_blank">
+            <img src="sundex.jpeg" alt="Sundex Process Engineers" />
+          </a>
+        </div>
+        <div class="client-item">
+          <a href="https://www.harishengineers.com/" target="_blank">
+            <img src="harish.jpg" alt="Harish Engineers" />
+          </a>
+        </div>
+        <div class="client-item">
+          <a href="http://www.hipointservices.com/" target="_blank">
+            <img src="HI POINT.jpg" alt="Hi Point Services" />
+          </a>
+        </div>
+        <div class="client-item">
+          <a href="https://www.ptcindia.com/" target="_blank">
+            <img src="ptc india.jpeg" alt="PTC India" />
+          </a>
+        </div>
+        <div class="client-item">
+          <a href="http://www.hipointservices.com/" target="_blank">
+            <img src="india port.jpeg" alt="India Port" />
+          </a>
+        </div>
+        <div class="client-item">
+          <a href="https://vijaycotton.com/" target="_blank">
+            <img src="vijiay cotton.png" alt="Vijay Cotton" />
+          </a>
+        </div>
+        <div class="client-item">
+          <a href="https://harshadmore.in/" target="_blank">
+            <img src="harshad maanohaar.png" alt="Harshad Manohar" />
+          </a>
+        </div>
+        
+        <!-- Duplicate items for seamless looping -->
+        <div class="client-item">
+          <a href="https://www.solventextractionplant.com/" target="_blank">
+            <img src="sundex.jpeg" alt="Sundex Process Engineers" />
+          </a>
+        </div>
+        <div class="client-item">
+          <a href="https://www.harishengineers.com/" target="_blank">
+            <img src="harish.jpg" alt="Harish Engineers" />
+          </a>
+        </div>
+        <div class="client-item">
+          <a href="http://www.hipointservices.com/" target="_blank">
+            <img src="HI POINT.jpg" alt="Hi Point Services" />
+          </a>
+        </div>
+        <div class="client-item">
+          <a href="https://www.ptcindia.com/" target="_blank">
+            <img src="ptc india.jpeg" alt="PTC India" />
+          </a>
+        </div>
+        <div class="client-item">
+          <a href="http://www.hipointservices.com/" target="_blank">
+            <img src="india port.jpeg" alt="India Port" />
+          </a>
+        </div>
+        <div class="client-item">
+          <a href="https://vijaycotton.com/" target="_blank">
+            <img src="vijiay cotton.png" alt="Vijay Cotton" />
+          </a>
+        </div>
+        <div class="client-item">
+          <a href="https://harshadmore.in/" target="_blank">
+            <img src="harshad maanohaar.png" alt="Harshad Manohar" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--Live stats Section-->
+  <section class="stats-section">
+    <div class="stats-title">Our Impact in Numbers</div>
+    <div class="stats-container">
+      <div class="stat-box">
+        <div class="stat-number" data-target="1500">0</div>
+        <div class="stat-label">Repairs Completed</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" data-target="1200">0</div>
+        <div class="stat-label">Happy Clients</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" data-target="15">0</div>
+        <div class="stat-label">Years of Experience</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- feedack -->
+    <section class="reviews-section">
+    <div class="reviews-title">
+      Client <span style="color: #00c851">Feedback</span>
+    </div>
+
+    <div class="review-container">
+      <div class="quarter-circle"></div>
+      <div class="review-box">
+        <div id="r-slide">
+          <div class="no-feedback">Loading feedback...</div>
+        </div>
+      </div>
+      <div class="nav-rectangle">
+        <div class="nav-arrow-up" id="upArrow">
+          <img src="https://img.icons8.com/ios-filled/50/000000/up.png" alt="Up" />
+        </div>
+        <div class="nav-arrow-down" id="downArrow">
+          <img src="https://img.icons8.com/ios-filled/50/000000/down.png" alt="Down" />
+        </div>
+      </div>
+    </div>
+
+    <button id="showFormBtn">Give Feedback</button>
+  </section>
+
+  <!-- Feedback Form Popup -->
+  <div id="feedbackPopupOverlay">
+    <div id="feedbackPopup">
+      <button class="popup-close" id="closePopup">&times;</button>
+      <div class="popup-title">Share Your Feedback</div>
+      <form id="feedbackForm">
+        <input id="userName" placeholder="Enter your name" required />
+        <input id="userDept" placeholder="Enter your Service" required />
+        <input id="userRating" type="number" step="0.5" min="0" max="5" placeholder="Rating (0–5)" required />
+        <textarea id="userFeedback" rows="4" placeholder="Enter your feedback" required></textarea>
+        <button class="save-feedback-btn" type="submit">Save Feedback</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Google Review Prompt Modal -->
+  <div id="googlePromptOverlay">
+    <div id="googlePromptModal">
+      <p>Thank you for your feedback!<br />Would you like to also post this review on Google?</p>
+      <div class="google-buttons">
+        <button id="googleYes">Yes, Post</button>
+        <button id="googleNo">No, Thanks</button>
+      </div>
+    </div>
+  </div>
+   
+  <!-- location -->
+
+  <div class="main-wrapper">
+    <h1 id="contact-heading">Contact Us</h1>
+
+    <section class="location-section">
+      <div class="top-container">
+        <div class="location-container">
+          <div class="location-text">
+            <h2>📍 Our Locations</h2>
+            <p>Cotton Green Office:</p>
+            <div class="info-indent" id="address-text">
+              C/o. Subhashlane Sarvajanik Utsav Mandal Office 135 G, Room No.13, Gr. Fl., Subhashlane, Ghodpdeo,
+              Rambhau Bhogle Marg, Mumbai, Maharashtra 400033
+            </div>
+
+            <p>Phone:</p>
+            <div class="info-indent" id="phone-text">
+              <a href="tel:+919867715690">+91-9867715690</a><br>
+              <a href="tel:+917977060816">+91-7977060816</a>
+            </div>
+
+            <p>Email:</p>
+            <div class="info-indent">
+              <a href="mailto:TejyashCyberSolutions@gmail.com">TejyashCyberSolutions@gmail.com</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="map-container">
+          <div class="map-view">
+            <!-- Location dropdown menu - now positioned on the right -->
+            <div class="location-dropdown">
+              <div class="dropdown-header">Select Location</div>
+              <ul class="dropdown-list">
+                <li class="dropdown-item active" onclick="setMapLocation('T1')">Cotton Green</li>
+                <li class="dropdown-divider"></li>
+                <li class="dropdown-item" onclick="setMapLocation('T2')">Santacruz</li>
+                <li class="dropdown-divider"></li>
+                <li class="dropdown-item" onclick="setMapLocation('T3')">Ghodapdeo</li>
+                <li class="dropdown-divider"></li>
+                <li class="dropdown-item" onclick="setMapLocation('T4')">Andheri</li>
+                <li class="dropdown-divider"></li>
+                <li class="dropdown-item" onclick="setMapLocation('T5')">Kurla</li>
+              </ul>
+            </div>
+            
+            <iframe 
+              id="mapFrame"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241488.11180738496!2d72.56469623281248!3d18.964486200000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7ce3664a78525%3A0x432a3c0c32d32a2e!2sTejyash%20Cyber%20Solutions!5e0!3m2!1sen!2sin!4v1749550030196!5m2!1sen!2sin" 
+              allowfullscreen="" 
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+          
+          <div class="map-actions">
+            <div class="action-buttons">
+              <a href="https://www.google.com/maps/@19.1229319,72.8439499,17z/data=!3m1!1e3" target="_blank">
+                View in 3D on Google Maps
+              </a>
+              <button class="share-btn" onclick="shareMap()">Share Location</button>
+            </div>
+          </div>
+          
+          <div class="copy-popup" id="copyPopup">Link copied!</div>
+        </div>
+      </div>
+
+      <div class="form-middle-container">
+        <div class="form-container">
+          <h2>📧 Send Us a Message</h2>
+          <form id="contactForm" action="https://formsubmit.co/mayureshparab10@gmail.com" method="POST">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_subject" value="New message from Tejyash Cyber Solutions">
+            <input type="hidden" name="_next" value="">
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required />
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" required />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone">Contact Number:</label>
+                <input type="tel" id="phone" name="phone" required />
+              </div>
+              <div class="form-group">
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject" name="subject" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message:</label>
+              <textarea id="message" name="message" rows="4" required></textarea>
+            </div>
+
+            <div class="form-submit-container">
+              <button type="submit">Send Message</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+
+
+
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
+<script>
+  // Initialize EmailJS with your public key
+  (function() {
+    emailjs.init("ZfeNK8e_b-9Gb_B17"); // ✅ Your Public Key
+  })();
+
+  // Handle contact form submission
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    emailjs.sendForm('service_06aovt5', 'template_todvoya', this)
+      .then(function() {
+        alert('Thank you for your message! We will get back to you soon.');
+        document.getElementById('contactForm').reset();
+      }, function(error) {
+        console.error('EmailJS error:', error);
+        alert('There was a problem sending your message. Please try again later.');
+      });
+  });
+
+  // Embed map URLs
+  const embedMapLinks = {
+    T1: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241488.11180738496!2d72.56469623281248!3d18.964486200000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7ce3664a78525%3A0x432a3c0c32d32a2e!2sTejyash%20Cyber%20Solutions!5e0!3m2!1sen!2sin!4v1749550030196!5m2!1sen!2sin",
+    T2: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241488.11180738496!2d72.56469623281248!3d18.964486200000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c97e07851f9b%3A0x631ad63e1e15b2d8!2sTejyash%20Cyber%20Solutions%20(Santacruz%20-%20Branch)!5e0!3m2!1sen!2sin!4v1749550226892!5m2!1sen!2sin",
+    T3: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241488.11180738496!2d72.56469623281248!3d18.964486200000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7cfb4f32637cb%3A0xbb3fc470c9d95a98!2sTejyash%20Cyber%20Solutions%20(Ghodapdeo%20-%20Branch)!5e0!3m2!1sen!2sin!4v1749550317520!5m2!1sen!2sin",
+    T4: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241488.11180738496!2d72.56469623281248!3d18.964486200000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c9c2e1c3c9ed%3A0xec85ef38c9f87b6f!2sTejyash%20Cyber%20Solutions%20(Andheri%20-%20Branch)!5e0!3m2!1sen!2sin!4v1749550356329!5m2!1sen!2sin",
+    T5: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241488.11180738496!2d72.56469623281248!3d18.964486200000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c9d9086aa2a7%3A0xee9adee8c1fa7fd!2sTejyash%20Cyber%20Solutions%20(Kurla%20-%20Branch)%7Cतेज्यश%20सायबर%20सोल्यूशन्स%20(कुर्ला%20-%20शाखा)!5e0!3m2!1sen!2sin!4v1749550030196!5m2!1sen!2sin"
+  };
+
+  // Shareable Google Maps links
+  const shareLinks = {
+    T1: "https://g.co/kgs/FMwvYch",
+    T2: "https://g.co/kgs/ciP7i1C",
+    T3: "https://maps.app.goo.gl/RDWPJNKZz9mf1nEq8",
+    T4: "https://g.co/kgs/oDVbQwu",
+    T5: "https://maps.app.goo.gl/3j5T1y4CkqZQYv4e9"
+  };
+
+  // Location data
+  const locationData = {
+    T1: {
+      name: "Cotton Green",
+      address: "C/o. Subhashlane Sarvajanik Utsav Mandal Office 135 G, Room No.13, Gr. Fl., Subhashlane, Ghodpdeo, Rambhau Bhogle Marg, Mumbai, Maharashtra 400033",
+      phones: [
+        { number: "+91-9867715690" },
+        { number: "+91-7977060816" }
+      ]
+    },
+    T2: {
+      name: "Santacruz",
+      address: "Room no-2, Dalvi Chawl, Ashok Nagar, Shiv Chatrapati Mitra Mandal, D'mello Compound, Vakola Bridge, Ashok Nagar, Santacruz East, Mumbai, Maharashtra 400055",
+      phones: [
+        { number: "+91-7977060816" }
+      ]
+    },
+    T3: {
+      name: "Ghodapdeo",
+      address: "C/o. Subhashlane Sarvajanik Utsav Mandal Office 135 G, Room No.13, Gr. Fl., Subhashlane, Rambhau Bhogle Marg, Ferbandar, Ghodapdeo, Rambhogle, Byculla, Mumbai, Maharashtra 400033",
+      phones: [
+        { number: "+91-9867715690" },
+        { number: "+91-7977060816" }
+      ]
+    },
+    T4: {
+      name: "Andheri",
+      address: "Room no.508, Bldg no.1/B-wing, co-op-hsg-society, Mahakali Caves Rd, near Ahura Centre, Shanti Nagar, Andheri East, Mumbai, Maharashtra 400093",
+      phones: [
+        { number: "+91-7977060816" }
+      ]
+    },
+    T5: {
+      name: "Kurla",
+      address: "Sundar Bagh kamani lane Waradkar Chawl Room no 10, near Shantoshi Mata Temple, Kajupada, Mumbai, Maharashtra 400070",
+      phones: [
+        { number: "+91-9867715690" },
+        { number: "+91-7977060816" }
+      ]
+    }
+  };
+
+  let currentLocation = "T1";
+
+  function setMapLocation(locationId) {
+    currentLocation = locationId;
+    document.getElementById("mapFrame").src = embedMapLinks[locationId];
+
+    document.querySelectorAll('.dropdown-item').forEach(item => {
+      item.classList.remove('active');
+    });
+    document.querySelector(`.dropdown-item[onclick="setMapLocation('${locationId}')"]`).classList.add('active');
+
+    updateLocationInfo(locationId);
+  }
+
+  function updateLocationInfo(locationId) {
+    const location = locationData[locationId];
+    const addressElement = document.getElementById("address-text");
+    const phoneElement = document.getElementById("phone-text");
+    const officeText = document.querySelector('.location-text p');
+
+    addressElement.textContent = location.address;
+    phoneElement.innerHTML = location.phones.map(phone =>
+      `<a href="tel:${phone.number.replace(/-/g, '')}">${phone.number}</a>`
+    ).join('<br>');
+    officeText.textContent = `${location.name} Office:`;
+  }
+
+  function shareMap() {
+    const linkToCopy = shareLinks[currentLocation];
+
+    navigator.clipboard.writeText(linkToCopy)
+      .then(() => {
+        const popup = document.getElementById("copyPopup");
+        popup.classList.add("show");
+        setTimeout(() => popup.classList.remove("show"), 2000);
+      })
+      .catch(err => {
+        console.error("Copy failed: ", err);
+        alert("Failed to copy link. Please try again.");
+      });
+  }
+</script>
+
+  <script src="tycs.js" defer>  </script>
+
+</body>
+</html>
